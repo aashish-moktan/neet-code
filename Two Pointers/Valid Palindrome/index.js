@@ -13,6 +13,7 @@ var isPalindrome = function (s) {
     }
     i++;
     j--;
+    g;
   }
   return true;
 };
