@@ -3,37 +3,38 @@
  * @return {number[][]}
  */
 var threeSum = function (nums) {
-  const result = [];
+  const sums = [];
   nums.sort((a, b) => a - b);
   for (i = 0; i < nums.length; i++) {
+    // if (nums[i] == nums[i + 1]) continue;
     const target = 0 - nums[i];
-    if (i == 0 || nums[i] !== nums[i - 1]) {
-      twoSum(nums, i + 1, nums.length - 1, target, result);
+    if (i != 0 || nums[i] != nums[i + 1]) {
+      const result = twoSum(nums, i + 1, nums.length - 1, target);
+      if (result.length) {
+        sums.push(result);
+      }
     }
   }
-  return result;
+
+  return sums;
 };
 
-var twoSum = function (nums, lptr, rptr, target, result) {
-  let element = lptr - 1;
-  let left = lptr;
-  let right = rptr;
-
+var twoSum = function (nums, left, right, target) {
+  let element = left - 1;
   while (left < right) {
     if (nums[left] + nums[right] < target) {
-      left += 1;
+      left++;
     } else if (nums[left] + nums[right] > target) {
-      right -= 1;
+      right--;
     } else {
-      result.push([nums[element], nums[left], nums[right]]);
-      while (left < right && nums[left] == nums[left + 1]) {
-        left += 1;
-      }
-      while (left < right && nums[right] == nums[right - 1]) {
-        right -= 1;
-      }
-      left += 1;
-      right -= 1;
+      // let key = `${nums[element]}${nums[left]}${nums[right]}`;
+      // if (!set.has(key)) {
+      //   hashMap[key] = true;
+      return [nums[element], nums[left], nums[right]];
+      // }
     }
   }
+  return [];
 };
+
+console.log(threeSum([0, 0, 0, 0]));
